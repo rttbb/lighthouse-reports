@@ -1,25 +1,27 @@
----
-layout: default
-title: Relatórios RTTBB
----
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{ page.title }}</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Relatórios Lighthouse – RTTBB</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --azul: #002855;
+      --azul-claro: #005EB8;
+      --cinza: #f4f4f4;
+    }
+    * {
+      box-sizing: border-box;
+    }
     body {
-      font-family: 'Inter', sans-serif;
       margin: 0;
-      padding: 0;
-      background-color: #f9f9f9;
+      font-family: 'Inter', sans-serif;
+      background-color: var(--cinza);
       color: #333;
     }
     header {
-      background-color: #002855;
+      background: linear-gradient(90deg, var(--azul) 0%, var(--azul-claro) 100%);
       color: white;
       padding: 2em 1em;
       text-align: center;
@@ -29,17 +31,17 @@ title: Relatórios RTTBB
       margin: 0;
       font-size: 2.2rem;
     }
-    nav {
-      max-width: 900px;
+    main {
+      max-width: 960px;
       margin: 2em auto;
-      padding: 1.5em;
+      padding: 2em;
       background: white;
       border-radius: 12px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     }
     details {
       margin-bottom: 1.5em;
-      border-left: 4px solid #005EB8;
+      border-left: 4px solid var(--azul-claro);
       padding-left: 1em;
     }
     summary {
@@ -56,7 +58,7 @@ title: Relatórios RTTBB
     }
     li a {
       text-decoration: none;
-      color: #005EB8;
+      color: var(--azul-claro);
       font-weight: 500;
       cursor: pointer;
     }
@@ -93,33 +95,51 @@ title: Relatórios RTTBB
       position: absolute;
       top: 10px; right: 15px;
       font-size: 1.5rem;
-      background: #005EB8;
+      background: var(--azul-claro);
       color: white;
       border: none;
       border-radius: 50%;
       width: 35px; height: 35px;
       cursor: pointer;
     }
+
+    footer {
+      text-align: center;
+      padding: 1em;
+      font-size: 0.9rem;
+      color: #777;
+    }
   </style>
 </head>
 <body>
 
 <header>
-  <h1>{{ page.title }}</h1>
+  <h1>Relatórios Lighthouse – RTTBB</h1>
 </header>
 
-<nav>
+<main>
   <details open>
-    <summary>Páginas Principais</summary>
+    <summary>Radar 2025</summary>
     <ul>
-      <li><a onclick="openModal('reports/radar.apps.bb.com.br.html')">Início</a></li>
-      <li><a onclick="openModal('reports/radar.apps.bb.com.br_2025.html')">Radar 2025</a></li>
-      <!-- Adicione mais itens aqui -->
+      <li><a onclick="openModal('reports/radar.apps.bb.com.br_2025.html')">Relatório Geral 2025</a></li>
+      <li><a onclick="openModal('reports/radar.apps.bb.com.br_2025_mobile.html')">Relatório Mobile 2025</a></li>
     </ul>
   </details>
-</nav>
 
-<!-- Modal HTML -->
+  <details>
+    <summary>Radar 2024</summary>
+    <ul>
+      <li><a onclick="openModal('reports/radar.apps.bb.com.br_2024.html')">Relatório Geral 2024</a></li>
+      <li><a onclick="openModal('reports/radar.apps.bb.com.br_2024_mobile.html')">Relatório Mobile 2024</a></li>
+    </ul>
+  </details>
+</main>
+
+<footer>
+  &copy; 2025 – Equipe RTTBB · <a href="https://github.com/seurepositorio" target="_blank">GitHub</a>
+</footer>
+
+<!-- Modal -->
 <div id="modal" class="modal">
   <div class="modal-content">
     <button class="close-btn" onclick="closeModal()">×</button>
