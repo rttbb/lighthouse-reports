@@ -1,0 +1,79 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Relatórios Lighthouse</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f9f9f9;
+    }
+    header {
+      background: #1a1a1a;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+    nav {
+      background: #333;
+      padding: 1rem;
+    }
+    nav label {
+      color: white;
+      font-size: 1.2em;
+      cursor: pointer;
+    }
+    .menu {
+      display: none;
+      margin-top: 1rem;
+    }
+    .menu.open {
+      display: block;
+    }
+    .category {
+      margin: 1rem 0;
+    }
+    .category h2 {
+      background: #444;
+      color: white;
+      padding: 0.5rem;
+      margin: 0;
+    }
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0.5rem 1rem;
+    }
+    li {
+      margin: 0.3rem 0;
+    }
+    a {
+      color: #0066cc;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+  <script>
+    function toggleMenu() {
+      document.getElementById('menu').classList.toggle('open');
+    }
+  </script>
+</head>
+<body>
+  <header>
+    <h1>Relatórios Lighthouse</h1>
+  </header>
+  <nav>
+    <label onclick="toggleMenu()">☰ Menu</label>
+    <div class="menu" id="menu">
+<div class="category"><h2>Radar 2022</h2><ul></ul></div><div class="category"><h2>Radar 2025</h2><ul></ul></div><div class="category"><h2>Blog</h2><ul></ul></div><div class="category"><h2>Páginas principais</h2><ul><li><a href="reports/urls.html" target="_blank">urls</a></li></ul></div>
+    </div>
+  </nav>
+</body>
+</html>
