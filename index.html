@@ -1,79 +1,153 @@
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Relatórios Lighthouse</title>
+  <title>Relatórios RTTBB</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background: #f9f9f9;
-    }
-    header {
-      background: #1a1a1a;
-      color: white;
-      padding: 1rem;
-      text-align: center;
-    }
-    nav {
-      background: #333;
-      padding: 1rem;
-    }
-    nav label {
-      color: white;
-      font-size: 1.2em;
-      cursor: pointer;
-    }
-    .menu {
-      display: none;
-      margin-top: 1rem;
-    }
-    .menu.open {
-      display: block;
-    }
-    .category {
-      margin: 1rem 0;
-    }
-    .category h2 {
-      background: #444;
-      color: white;
-      padding: 0.5rem;
-      margin: 0;
-    }
-    ul {
-      list-style: none;
-      margin: 0;
-      padding: 0.5rem 1rem;
-    }
-    li {
-      margin: 0.3rem 0;
-    }
-    a {
-      color: #0066cc;
-      text-decoration: none;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
+    header { background-color: #003366; color: white; padding: 1em; text-align: center; }
+    nav { background-color: #f2f2f2; padding: 1em; }
+    details { margin-bottom: 1em; }
+    summary { font-weight: bold; cursor: pointer; }
+    ul { list-style-type: none; padding-left: 1em; }
+    li a { text-decoration: none; color: #333; }
+    li a:hover { text-decoration: underline; }
   </style>
-  <script>
-    function toggleMenu() {
-      document.getElementById('menu').classList.toggle('open');
-    }
-  </script>
 </head>
 <body>
-  <header>
-    <h1>Relatórios Lighthouse</h1>
-  </header>
-  <nav>
-    <label onclick="toggleMenu()">☰ Menu</label>
-    <div class="menu" id="menu">
-<div class="category"><h2>Radar 2022</h2><ul></ul></div><div class="category"><h2>Radar 2025</h2><ul></ul></div><div class="category"><h2>Blog</h2><ul></ul></div><div class="category"><h2>Páginas principais</h2><ul><li><a href="reports/urls.html" target="_blank">urls</a></li></ul></div>
-    </div>
-  </nav>
+
+<header>
+  <h1>Relatórios RTTBB</h1>
+</header>
+
+<nav>
+
+  <details open>
+  <summary>Páginas Principais</summary>
+  <ul>
+    <li><a href="reports/radar.apps.bb.com.br.html" target="_blank">Início</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_2025.html" target="_blank">Radar 2025</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_2024.html" target="_blank">Radar 2024</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_2023.html" target="_blank">Radar 2023</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_2022.html" target="_blank">Radar 2022</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_sobre.html" target="_blank">Sobre</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_sobre-nos.html" target="_blank">Sobre Nós</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_noticias.html" target="_blank">Notícias</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_eventos.html" target="_blank">Eventos</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_acessibilidade.html" target="_blank">Acessibilidade</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_maturidades.html" target="_blank">Maturidades</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_temas.html" target="_blank">Temas</a></li>
+  </ul>
+  </details>
+
+  <details>
+  <summary>Temas</summary>
+  <ul>
+    <li><a href="reports/radar.apps.bb.com.br_temas_Confiança_217.html" target="_blank">Confiança</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_temas_Mundo-Inteligente_218.html" target="_blank">Mundo Inteligente (218)</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_temas_Habilitadores_219.html" target="_blank">Habilitadores</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_temas_Revolução-da-Produtividade_220.html" target="_blank">Revolução da Produtividade</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_temas_Cérebro-Digital_211.html" target="_blank">Cérebro Digital</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_temas_Ecotech-e-Conexão-Onipresente_212.html" target="_blank">Ecotech e Conexão Onipresente</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_temas_Finanças-5.0_213.html" target="_blank">Finanças 5.0</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_temas_Jornada-Interativa_214.html" target="_blank">Jornada Interativa</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_temas_Automação-Cognitiva-e-Infra_215.html" target="_blank">Automação Cognitiva e Infra</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_temas_Segurança-Cibernética_216.html" target="_blank">Segurança Cibernética</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_temas_TechGuardian_303.html" target="_blank">TechGuardian</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_temas_EcoInovação_304.html" target="_blank">EcoInovação</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_temas_Experiência-Imersiva_305.html" target="_blank">Experiência Imersiva</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_temas_TechFinance_306.html" target="_blank">TechFinance</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_temas_Mundo-Inteligente_301.html" target="_blank">Mundo Inteligente (301)</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_temas_TechFoundation_302.html" target="_blank">TechFoundation</a></li>
+  </ul>
+  </details>
+
+  <details>
+  <summary>Tendências de 2022</summary>
+  <ul>
+    <li><a href="reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Confiança_Autenticação-sem-Senha_6160.html" target="_blank">Autenticação sem Senha</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Confiança_Blockchain-e-Criptoativos_6157.html" target="_blank">Blockchain e Criptoativos</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Confiança_Computação-de-Aprimoramento-de-Privacidade-e-Segurança-PEC_6118.html" target="_blank">Computação de Aprimoramento de Privacidade e Segurança (PEC)</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Confiança_Criptografia-Homomórfica_6147.html" target="_blank">Criptografia Homomórfica</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Confiança_Malha-de-Dados_6116.html" target="_blank">Malha de Dados</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Confiança_Malha-de-Segurança-Cibernética-Abrangente-CSMA-e-Confiança-Zero_6117.html" target="_blank">Malha de Segurança Cibernética Abrangente (CSMA) e Confiança Zero</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Confiança_Novas-Arquiteturas-de-Rede-Neural-Convolucional-ConvNext_6144.html" target="_blank">Arquiteturas de Rede Neural Convolucional (ConvNext)</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Confiança_Plataformas-Nativas-de-Nuvem-CNPs_6119.html" target="_blank">Plataformas Nativas de Nuvem (CNPs)</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Habilitadores_5G_6143.html" target="_blank">5G</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Habilitadores_6G_6142.html" target="_blank">6G</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Habilitadores_Aplicações-Compostas_6120.html" target="_blank">Aplicações Compostas</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Habilitadores_Automação-de-Processos-Robóticos-RPA_6156.html" target="_blank">Automação de Processos Robóticos (RPA)</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Habilitadores_Computação-Neuromórfica_6155.html" target="_blank">Computação Neuromórfica</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Habilitadores_Engenharia-de-IA_6123.html" target="_blank">Engenharia de IA</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Habilitadores_Hiperautomação_6122.html" target="_blank">Hiperautomação</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Habilitadores_Inteligência-de-Decisão:-IA-e-Analytics_6121.html" target="_blank">Inteligência de Decisão: IA & Analytics</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Habilitadores_Nanotecnologia_6130.html" target="_blank">Nanotecnologia</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Habilitadores_Tecnologias-de-Grafos_6148.html" target="_blank">Tecnologias de Grafos</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Habilitadores_Tokenização-de-Ativos_6138.html" target="_blank">Tokenização de Ativos</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Habilitadores_Tudo-como-Serviço-XaaS_6132.html" target="_blank">Tudo como Serviço (XaaS)</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Mundo-Inteligente_Chatbots-Avançados-AVAs_6141.html" target="_blank">Chatbots Avançados (AVAs)</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Mundo-Inteligente_Cidades-ou-Espaços-Inteligentes_6146.html" target="_blank">Cidades ou Espaços Inteligentes</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Mundo-Inteligente_Comoditização-da-Tecnologia-Espacial_6161.html" target="_blank">Comoditização da Tecnologia Espacial</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Mundo-Inteligente_Contratos-Inteligentes_6134.html" target="_blank">Contratos Inteligentes</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Mundo-Inteligente_Gêmeos-Digitais_6137.html" target="_blank">Gêmeos Digitais</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Mundo-Inteligente_Interface-de-Usuário-Multimodal-MUI_6135.html" target="_blank">Interface de Usuário Multimodal (MUI)</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Mundo-Inteligente_Metaverso_6128.html" target="_blank">Metaverso</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Mundo-Inteligente_Plataforma-de-Internet-das-Coisas_6140.html" target="_blank">Plataforma de Internet das Coisas</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Mundo-Inteligente_Realidade-Estendida-XR:-Aumentada-AR-Virtual-VR-e-Mista-MR-Dispositivos-Vestíveis-e-Internet-do-Comportamento-IoB_6150.html" target="_blank">Realidade Estendida (XR), AR/VR/MR, Vestíveis e IoB</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Mundo-Inteligente_Tecnologias-Holográficas_6149.html" target="_blank">Tecnologias Holográficas</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Mundo-Inteligente_Tecnologias-Sustentáveis:-TI-Verde_6129.html" target="_blank">Tecnologias Sustentáveis (TI Verde)</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Mundo-Inteligente_Telemedicina_6158.html" target="_blank">Telemedicina</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Mundo-Inteligente_Web-3.0-e-Software-2.0_6159.html" target="_blank">Web-3.0 e Software 2.0</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Revolução-da-Produtividade_Aprendizagem-Auto-Supervisionada-SSL_6152.html" target="_blank">Aprendizagem Auto‑Supervisionada (SSL)</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Revolução-da-Produtividade_Coisas-autônomas_6126.html" target="_blank">Coisas Autônomas</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Revolução-da-Produtividade_Computação-Quântica_6154.html" target="_blank">Computação Quântica</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Revolução-da-Produtividade_Economia-sem-Dinheiro:-Pagamentos-4.X_6133.html" target="_blank">Economia sem Dinheiro: Pagamentos 4.X</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Revolução-da-Produtividade_Engenharia-de-Software-Aumentada-por-IA-AIASE_6136.html" target="_blank">Engenharia de Software Aumentada por IA (AIASE)</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Revolução-da-Produtividade_Experiência-Total-TX_6125.html" target="_blank">Experiência Total (TX)</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Revolução-da-Produtividade_Finanças-Descentralizadas-DeFi_6131.html" target="_blank">Finanças Descentralizadas (DeFi)</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Revolução-da-Produtividade_Futuro-Híbrido:-Empresas-Distribuídas-WFH_6124.html" target="_blank">Futuro Híbrido: Empresas Distribuídas (WFH)</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Revolução-da-Produtividade_IA-de-Borda_6153.html" target="_blank">IA de Borda</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Revolução-da-Produtividade_IA-Generativa_6127.html" target="_blank">IA Generativa</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Revolução-da-Produtividade_Plataformas-Low-Code-e-No-Code_6145.html" target="_blank">Plataformas Low‑Code e No‑Code</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Revolução-da-Produtividade_Robôs-Colaborativos-Cobots_6151.html" target="_blank">Robôs Colaborativos (Cobots)</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Revolução-da-Produtividade_Token-Não-Fungível-NFT_6139.html" target="_blank">Token Não‑Fungível (NFT)</a></li>
+  </ul>
+  </details>
+
+  <details>
+  <summary>Blog RTT</summary>
+  <ul>
+    <li><a href="reports/radar.apps.bb.com.br_blogrtt_Microsoft-e-Atom-Computing-anunciam-computador-quântico-comercial-para-2025_27001.html" target="_blank">Microsoft e Atom Computing</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_blogrtt_Planeta-Invisível_26001.html" target="_blank">Planeta Invisível</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_blogrtt_IBM-conecta-dois-chips-quânticos-e-avança-na-computação-do-futuro_25001.html" target="_blank">IBM conecta dois chips quânticos</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_blogrtt_Computação-clássica-questiona-a-supremacia-quântica-com-novos-algoritmos_24001.html" target="_blank">Computação clássica vs quântica</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_blogrtt_Venha-desvendar-o-mundo-quântico_23001.html" target="_blank">Desvende o mundo quântico</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_blogrtt_Como-a-IA-e-a-automação-estão-transformando-o-mercado-de-trabalho_22001.html" target="_blank">IA e o mercado de trabalho</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_blogrtt_IA-do-Mal:-Reflexões-Sobre-Tecnologia-e-Relações-Humanas_21001.html" target="_blank">IA do Mal</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_blogrtt_Golpes-com-apps-falsos:-como-criminosos-roubam-dados-usando-aplicativos-de-fachada_20001.html" target="_blank">Golpes com apps falsos</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_blogrtt_Revolução-na-Medicina:-💉-Tratamentos-Inovadores-para-Doenças-Graves_19001.html" target="_blank">Revolução na Medicina</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_blogrtt_Desafios-e-limitações:-por-que-a-IA-ainda-não-desvenda-charadas_18001.html" target="_blank">Limites da IA</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_blogrtt_Principais-tendências-tecnológicas-para-2025-e-seu-impacto-no-futuro_16001.html" target="_blank">Tendências Tecnológicas 2025</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_blogrtt_Tecnologias-emergentes:-conheça-as-tendências-que-podem-ajudar-você-a-dominar-o-futuro-digital_15001.html" target="_blank">Tecnologias emergentes</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_blogrtt_Bill-Gates-e-o-futuro-da-sustentabilidade:-combatendo-o-aquecimento-global_14001.html" target="_blank">Bill Gates e sustentabilidade</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_blogrtt_Terapia-com-ChatGPT:-Uma-Alternativa-Viável-ou-Arriscada_13001.html" target="_blank">Terapia com ChatGPT</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_blogrtt_O-Impacto-da-Desinformação:-Reflexões-a-Partir-de-Bill-Gates_12001.html" target="_blank">Desinformação e Bill Gates</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_blogrtt_DREX:-A-Moeda-Digital-que-Promete-Ir-Além-do-PIX_11001.html" target="_blank">DREX: além do PIX</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_blogrtt_Bill-Gates-e-o-Impacto-da-Inteligência-Artificial-no-Nosso-Futuro_10001.html" target="_blank">Bill Gates e a IA</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_blogrtt_Adeus-Terabytes,-Olá-Qubits:-A-Revolução-da-Computação-Quântica_9001.html" target="_blank">Adeus Terabytes, Olá Qubits</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_blogrtt_IA-e-o-Impacto-Ambiental:-Um-Equilíbrio-Desafiador_8001.html" target="_blank">IA e impacto ambiental</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_blogrtt_Cirurgião-Chinês-Realiza-Cirurgia-de-Tumor-a-5.000-km-Usando-Robôs_7001.html" target="_blank">Cirurgia remota com robôs</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_blogrtt_A-Revolução-do-GPS:-Como-Vivíamos-Sem-Ele_6001.html" target="_blank">A revolução do GPS</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_blogrtt_O-Horário-de-Verão-e-Seu-Impacto-na-Eficiência-Energética_5001.html" target="_blank">Horário de verão e energia</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_blogrtt_De-Enciclopédias-a-Inteligência-Artificial:-A-Jornada-da-Informação!_4001.html" target="_blank">Jornada da Informação</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_blogrtt_Google-Utiliza-IA-para-Detectar-Incêndios-Florestais-em-Tempo-Real_1.html" target="_blank">IA e incêndios florestais</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_blogrtt_A-Revolução-do-Trabalho_2001.html" target="_blank">A Revolução do Trabalho</a></li>
+    <li><a href="reports/radar.apps.bb.com.br_blogrtt_Convite-Especial:-Trabalho-Híbrido!_1001.html" target="_blank">Trabalho Híbrido</a></li>
+  </ul>
+  </details>
+
+</nav>
+
 </body>
 </html>
