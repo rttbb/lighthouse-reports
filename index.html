@@ -1,204 +1,242 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <title>Radar de Tendências</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Relatórios Lighthouse – RTTBB</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+    :root{
+      --azul:#002855;
+      --azul-2:#005EB8;
+      --bg:#f4f6fa;
+      --texto:#1f2937;
+      --borda:#e5e7eb;
+      --shadow:0 10px 30px rgba(0,0,0,.07);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family:'Inter',system-ui,Segoe UI,Roboto,Arial,sans-serif;
+      background:var(--bg); color:var(--texto);
+      display:grid; grid-template-rows:auto 1fr auto;
     }
 
-    body {
-      font-family: sans-serif;
-      display: flex;
-      min-height: 100vh;
+    /* Header */
+    header{
+      background:linear-gradient(90deg,var(--azul) 0%, var(--azul-2) 100%);
+      color:#fff; padding:16px 20px; display:flex; align-items:center; gap:12px;
+      position:sticky; top:0; z-index:10; box-shadow:0 2px 8px rgba(0,0,0,.12);
+    }
+    .brand{font-weight:600; font-size:1.1rem; letter-spacing:.2px}
+    .burger{
+      background:transparent; border:0; color:#fff; cursor:pointer; padding:8px;
+      border-radius:8px; display:inline-flex; align-items:center; justify-content:center;
+    }
+    .burger:focus{outline:2px solid #fff; outline-offset:2px}
+
+    /* Layout principal */
+    .wrap{
+      display:grid; grid-template-columns:280px 1fr; gap:20px; max-width:1400px;
+      width:100%; margin:20px auto; padding:0 20px;
+    }
+    /* Sidebar (drawer) */
+    aside{
+      background:#fff; border:1px solid var(--borda); border-radius:14px; box-shadow:var(--shadow);
+      padding:14px; height:fit-content; align-self:start; position:sticky; top:84px;
+    }
+    .section-title{font-weight:600; color:var(--azul); margin:6px 8px 8px}
+    details{
+      border:1px solid var(--borda); border-radius:12px; padding:8px; margin:10px 0; background:#fff;
+    }
+    summary{
+      list-style:none; cursor:pointer; font-weight:600; color:var(--azul-2);
+    }
+    summary::-webkit-details-marker{display:none}
+    .menu{
+      list-style:none; padding:6px 0 0 2px; margin:0;
+      max-height:360px; overflow:auto;
+    }
+    .menu li{margin:2px 0}
+    .link{
+      width:100%; display:block; padding:8px 10px; border-radius:10px; text-decoration:none;
+      color:var(--texto); font-weight:500; border:1px solid transparent;
+    }
+    .link:hover{background:#f1f5ff; border-color:#dbe7ff}
+    .link.active{background:#e8f1ff; border-color:#cfe3ff; color:#0f2b6d}
+
+    /* Conteúdo (iframe) */
+    .viewer{
+      background:#fff; border:1px solid var(--borda); border-radius:14px; box-shadow:var(--shadow);
+      padding:10px; display:flex; flex-direction:column; min-height:70vh;
+    }
+    .viewer-header{
+      display:flex; align-items:center; justify-content:space-between; padding:8px 10px 12px 10px; border-bottom:1px solid var(--borda);
+    }
+    .crumb{font-weight:600; color:var(--azul)}
+    .open-new{
+      border:1px solid var(--borda); background:#fff; border-radius:10px; padding:6px 10px; cursor:pointer;
+    }
+    iframe{
+      width:100%; height:75vh; min-height:520px; border:0; border-radius:10px; background:#fff;
     }
 
-    header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 3rem;
-      background: #333;
-      color: white;
-      display: flex;
-      align-items: center;
-      padding: 0 1rem;
-      justify-content: space-between;
-      z-index: 100;
+    /* Footer */
+    footer{
+      padding:14px 20px; text-align:center; color:#6b7280; font-size:.95rem;
     }
 
-    header h1 {
-      font-size: 1rem;
-    }
-
-    .burger {
-      background: none;
-      border: none;
-      cursor: pointer;
-      display: none;
-    }
-
-    .burger svg {
-      width: 1.5rem;
-      height: 1.5rem;
-      fill: white;
-    }
-
-    aside {
-      width: 250px;
-      background: #f5f5f5;
-      padding: 4rem 1rem 1rem;
-      overflow-y: auto;
-      border-right: 1px solid #ddd;
-      transition: transform 0.3s ease;
-    }
-
-    aside ul {
-      list-style: none;
-    }
-
-    aside li {
-      margin: 0.5rem 0;
-      cursor: pointer;
-      padding: 0.5rem;
-      border-radius: 5px;
-    }
-
-    aside li:hover {
-      background: #ddd;
-    }
-
-    main {
-      flex-grow: 1;
-      padding: 4rem 2rem 2rem;
-      overflow: auto;
-      width: 100%;
-    }
-
-    iframe {
-      width: 100%;
-      height: 80vh;
-      border: none;
-      border-radius: 8px;
-      box-shadow: 0 0 8px rgba(0,0,0,0.2);
-    }
-
-    #loading {
-      text-align: center;
-      font-weight: bold;
-      font-size: 1.2rem;
-      padding: 2rem;
-    }
-
-    @media (max-width: 1024px) {
-      .burger {
-        display: block;
+    /* Responsivo */
+    @media (max-width: 1024px){
+      .wrap{grid-template-columns:1fr}
+      aside{
+        position:fixed; inset:0 auto 0 0; width:78%; max-width:340px; height:100%;
+        top:0; border-radius:0; padding:16px; transform:translateX(-100%);
+        transition:transform .25s ease, box-shadow .25s ease; z-index:100;
       }
-
-      aside {
-        position: fixed;
-        top: 3rem;
-        left: 0;
-        bottom: 0;
-        width: 250px;
-        background: #f5f5f5;
-        transform: translateX(-100%);
-        box-shadow: none;
-        transition: transform 0.3s ease;
-        z-index: 99;
-      }
-
-      aside.open {
-        transform: translateX(0);
-        box-shadow: 0 0 0 100vmax rgba(0,0,0,.35);
-      }
-
-      body.menu-open {
-        overflow: hidden;
-      }
+      aside.open{transform:translateX(0); box-shadow:0 0 0 100vmax rgba(0,0,0,.35)}
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>Radar de Tendências</h1>
-    <button class="burger" id="burger" aria-label="Abrir menu" aria-expanded="false">
-      <svg id="burger-icon" viewBox="0 0 100 80">
-        <rect width="100" height="10"></rect>
-        <rect y="30" width="100" height="10"></rect>
-        <rect y="60" width="100" height="10"></rect>
-      </svg>
-      <svg id="close-icon" viewBox="0 0 100 100" style="display: none;">
-        <line x1="10" y1="10" x2="90" y2="90" stroke="white" stroke-width="10" />
-        <line x1="90" y1="10" x2="10" y2="90" stroke="white" stroke-width="10" />
+    <button class="burger" id="burger" aria-label="Abrir menu" aria-controls="drawer" aria-expanded="false">
+      <!-- ícone hambúrguer -->
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M3 6h18M3 12h18M3 18h18" stroke="white" stroke-width="2" stroke-linecap="round"/>
       </svg>
     </button>
+    <div class="brand">Relatórios Lighthouse – RTTBB</div>
   </header>
 
-  <aside id="drawer">
-    <ul id="menu">
-      <li data-url="reports/radar.apps.bb.com.br_tendencia_2022.html">Radar 2022</li>
-      <li data-url="reports/radar.apps.bb.com.br_tendencia_2023.html">Radar 2023</li>
-      <li data-url="reports/radar.apps.bb.com.br_tendencia_2024.html">Radar 2024</li>
-      <li data-url="reports/radar.apps.bb.com.br_tendencia_2025.html">Radar 2025</li>
-      <!-- Adicione mais links aqui conforme seus arquivos -->
-    </ul>
-  </aside>
+  <div class="wrap">
+    <!-- Drawer / Sidebar -->
+    <aside id="drawer" aria-label="Menu de relatórios">
+      <div class="section-title">Relatórios Radar</div>
 
-  <main id="main">
-    <div id="loading" style="display: none;">Carregando...</div>
-    <iframe id="viewer" src="" style="display: none;"></iframe>
-  </main>
+      <details open>
+        <summary>🏠 Páginas Principais</summary>
+        <ul class="menu">
+          <!-- Use data-src com o caminho do arquivo em /reports -->
+          <li><a class="link" href="#reports/radar.apps.bb.com.br.html" data-src="reports/radar.apps.bb.com.br.html">Início</a></li>
+          <li><a class="link" href="#reports/radar.apps.bb.com.br_2025.html" data-src="reports/radar.apps.bb.com.br_2025.html">Radar 2025</a></li>
+          <li><a class="link" href="#reports/radar.apps.bb.com.br_2024.html" data-src="reports/radar.apps.bb.com.br_2024.html">Radar 2024</a></li>
+          <li><a class="link" href="#reports/radar.apps.bb.com.br_2023.html" data-src="reports/radar.apps.bb.com.br_2023.html">Radar 2023</a></li>
+          <li><a class="link" href="#reports/radar.apps.bb.com.br_2022.html" data-src="reports/radar.apps.bb.com.br_2022.html">Radar 2022</a></li>
+        </ul>
+      </details>
+
+      <details>
+        <summary>🧭 Temas</summary>
+        <ul class="menu">
+          <li><a class="link" href="#reports/radar.apps.bb.com.br_temas_Confiança_217.html" data-src="reports/radar.apps.bb.com.br_temas_Confiança_217.html">Confiança</a></li>
+          <li><a class="link" href="#reports/radar.apps.bb.com.br_temas_Mundo-Inteligente_218.html" data-src="reports/radar.apps.bb.com.br_temas_Mundo-Inteligente_218.html">Mundo Inteligente (218)</a></li>
+          <li><a class="link" href="#reports/radar.apps.bb.com.br_temas_Habilitadores_219.html" data-src="reports/radar.apps.bb.com.br_temas_Habilitadores_219.html">Habilitadores</a></li>
+          <!-- ...adicione os demais -->
+        </ul>
+      </details>
+
+      <details>
+        <summary>🗓️ Tendências 2022</summary>
+        <ul class="menu">
+          <li><a class="link" href="#reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Confiança_Autenticação-sem-Senha_6160.html" data-src="reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Confiança_Autenticação-sem-Senha_6160.html">Autenticação sem Senha</a></li>
+          <!-- ...adicione as demais tendências 2022 -->
+        </ul>
+      </details>
+
+      <!-- Você pode repetir blocks de <details> para 2023/2024/2025 -->
+    </aside>
+
+    <!-- Viewer central -->
+    <section class="viewer" aria-live="polite">
+      <div class="viewer-header">
+        <div class="crumb" id="crumb">Selecione um relatório no menu</div>
+        <button class="open-new" id="openNew" disabled>Abrir em nova guia</button>
+      </div>
+      <iframe id="reportFrame" title="Visualizador de Relatórios"></iframe>
+    </section>
+  </div>
+
+  <footer>
+    © 2025 • Equipe RTTBB
+  </footer>
 
   <script>
-    const burger = document.getElementById('burger');
     const drawer = document.getElementById('drawer');
-    const burgerIcon = document.getElementById('burger-icon');
-    const closeIcon = document.getElementById('close-icon');
-    const viewer = document.getElementById('viewer');
-    const loading = document.getElementById('loading');
-    const menuItems = document.querySelectorAll('#menu li');
+    const burger = document.getElementById('burger');
+    const frame  = document.getElementById('reportFrame');
+    const crumb  = document.getElementById('crumb');
+    const openNewBtn = document.getElementById('openNew');
 
-    burger.addEventListener('click', () => {
-      const isOpen = drawer.classList.toggle('open');
-      burger.setAttribute('aria-expanded', String(isOpen));
-      document.body.classList.toggle('menu-open', isOpen);
-      burgerIcon.style.display = isOpen ? 'none' : 'block';
-      closeIcon.style.display = isOpen ? 'block' : 'none';
-    });
+    function setActive(linkEl){
+      document.querySelectorAll('.link').forEach(a=>a.classList.remove('active'));
+      if(linkEl){ linkEl.classList.add('active'); }
+    }
 
-    menuItems.forEach(item => {
-      item.addEventListener('click', () => {
-        const url = item.dataset.url;
+    function loadFromLink(linkEl){
+      const url = linkEl?.dataset.src;
+      const label = linkEl?.textContent?.trim() || 'Relatório';
+      if(!url) return;
+      frame.src = url;
+      crumb.textContent = label;
+      setActive(linkEl);
+      openNewBtn.disabled = false;
+      openNewBtn.onclick = () => window.open(url, '_blank');
 
-        // Exibe o loading
-        loading.style.display = 'block';
-        viewer.style.display = 'none';
-
-        // Fecha o menu (se em mobile)
+      // Fechar drawer no mobile ao escolher
+      if (window.matchMedia('(max-width: 1024px)').matches) {
         drawer.classList.remove('open');
-        burger.setAttribute('aria-expanded', 'false');
-        document.body.classList.remove('menu-open');
-        burgerIcon.style.display = 'block';
-        closeIcon.style.display = 'none';
+        burger.setAttribute('aria-expanded','false');
+        document.body.style.overflow = 'auto';
+      }
+    }
 
-        // Aguarda um tempo pequeno para simular carregamento (pode remover isso se quiser)
-        setTimeout(() => {
-          viewer.src = url;
-        }, 300);
-      });
+    // Clique nos itens do menu
+    drawer.addEventListener('click', (e)=>{
+      const a = e.target.closest('.link');
+      if(!a) return;
+      e.preventDefault();
+      // usar o hash como estado compartilhável
+      history.replaceState(null, '', a.getAttribute('href'));
+      loadFromLink(a);
     });
 
-    // Quando a página no iframe for carregada, remove o loading
-    viewer.addEventListener('load', () => {
-      loading.style.display = 'none';
-      viewer.style.display = 'block';
+    // Burguer abre/fecha o drawer no mobile
+    burger.addEventListener('click', ()=>{
+      const open = drawer.classList.toggle('open');
+      burger.setAttribute('aria-expanded', String(open));
+      document.body.style.overflow = open ? 'hidden' : 'auto';
     });
+
+    // ESC fecha o drawer no mobile
+    window.addEventListener('keydown', (e)=>{
+      if(e.key === 'Escape' && drawer.classList.contains('open')){
+        drawer.classList.remove('open');
+        burger.setAttribute('aria-expanded','false');
+        document.body.style.overflow = 'auto';
+      }
+    });
+
+    // Deep-link: se houver hash na URL (#reports/arquivo.html), já carrega
+    function bootFromHash(){
+      const hash = decodeURIComponent(location.hash || '').replace(/^#/, '');
+      if(!hash) return;
+      const link = document.querySelector(`.link[href="#${CSS.escape(hash)}"]`);
+      if(link){ loadFromLink(link); }
+    }
+
+    // Carrega padrão se não houver hash
+    function loadDefault(){
+      const first = document.querySelector('.menu .link');
+      if(first && !location.hash){
+        history.replaceState(null,'',first.getAttribute('href'));
+        loadFromLink(first);
+      }
+    }
+
+    // inicialização
+    bootFromHash();
+    loadDefault();
   </script>
 </body>
 </html>
