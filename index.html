@@ -1,133 +1,149 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Radar de Tendências</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     * {
-      box-sizing: border-box;
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
     }
 
     body {
       font-family: Arial, sans-serif;
+      height: 100vh;
       display: flex;
-      min-height: 100vh;
       flex-direction: column;
     }
 
     header {
-      background-color: #333;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: #0147AB;
       color: white;
-      padding: 1rem;
-      text-align: center;
+      padding: 0.5rem 1rem;
+      height: 60px;
     }
 
-    main {
-      flex: 1;
-      padding: 1rem;
+    header img {
+      height: 40px;
+      margin-right: 0.75rem;
     }
 
-    .ano-section {
-      margin-bottom: 2rem;
+    header h1 {
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
     }
 
-    .ano-section h2 {
-      margin-bottom: 0.5rem;
-      color: #444;
+    .dropdown-button {
+      background-color: #fff;
+      color: #0147AB;
+      border: none;
+      padding: 8px 16px;
+      font-size: 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.2s;
     }
 
-    ul {
+    .dropdown-button:hover {
+      background-color: #f0f0f0;
+    }
+
+    .modal {
+      position: absolute;
+      top: 70px;
+      right: 20px;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      z-index: 999;
+      width: 300px;
+      max-height: 400px;
+      overflow-y: auto;
+      display: none;
+    }
+
+    .modal ul {
       list-style: none;
-      padding-left: 1rem;
     }
 
-    li {
-      margin-bottom: 0.4rem;
+    .modal li {
+      padding: 10px;
+      border-bottom: 1px solid #eee;
+      cursor: pointer;
     }
 
-    a {
-      text-decoration: none;
-      color: #0077cc;
+    .modal li:hover {
+      background-color: #f5f5f5;
     }
 
-    a:hover {
-      text-decoration: underline;
-    }
-
-    footer {
-      text-align: center;
-      padding: 1rem;
-      font-size: 0.9rem;
-      color: #777;
+    iframe {
+      flex-grow: 1;
+      width: 100%;
+      border: none;
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>Radar de Tendências</h1>
+    <h1>
+      <img src="reports/lighthouse-logo.png" alt="Lighthouse logo" />
+      Radar de Tendências
+    </h1>
+    <button class="dropdown-button" onclick="toggleModal()">Selecionar Relatório</button>
   </header>
 
-  <main id="conteudo">
-    <p>Carregando relatórios...</p>
-  </main>
+  <div class="modal" id="dropdownModal">
+    <ul id="relatoriosList"></ul>
+  </div>
 
-  <footer>
-    &copy; 2025 Radar de Tendências BB
-  </footer>
+  <iframe id="viewer" src="reports/radar.apps.bb.com.br.html"></iframe>
 
   <script>
-    async function carregarRelatorios() {
+    async function carregarLista() {
       try {
-        const resposta = await fetch('reports/list.json');
-        const arquivos = await resposta.json();
-
-        // Agrupar por ano
-        const grupos = {};
+        const response = await fetch('reports/list.json');
+        const arquivos = await response.json();
+        const lista = document.getElementById('relatoriosList');
+        lista.innerHTML = '';
 
         arquivos.forEach(arquivo => {
-          const match = arquivo.match(/_202(\d|[3-5])/); // 2022 a 2025
-          const ano = match ? `Radar ${match[0].replace('_', '')}` : 'Outros';
-
-          if (!grupos[ano]) grupos[ano] = [];
-          grupos[ano].push(arquivo);
+          const li = document.createElement('li');
+          li.textContent = arquivo;
+          li.onclick = () => carregarRelatorio(arquivo);
+          lista.appendChild(li);
         });
-
-        const conteudo = document.getElementById('conteudo');
-        conteudo.innerHTML = '';
-
-        Object.keys(grupos).sort().forEach(ano => {
-          const section = document.createElement('div');
-          section.className = 'ano-section';
-
-          const titulo = document.createElement('h2');
-          titulo.textContent = ano;
-          section.appendChild(titulo);
-
-          const lista = document.createElement('ul');
-
-          grupos[ano].forEach(nome => {
-            const item = document.createElement('li');
-            const link = document.createElement('a');
-            link.href = `reports/${nome}`;
-            link.textContent = nome.replace('radar.apps.bb.com.br_', '').replace('.html', '').replace(/_/g, ' ');
-            item.appendChild(link);
-            lista.appendChild(item);
-          });
-
-          section.appendChild(lista);
-          conteudo.appendChild(section);
-        });
-
-      } catch (erro) {
-        document.getElementById('conteudo').innerHTML = '<p>Erro ao carregar relatórios.</p>';
-        console.error('Erro ao carregar list.json:', erro);
+      } catch (error) {
+        console.error('Erro ao carregar list.json:', error);
       }
     }
 
-    carregarRelatorios();
+    function carregarRelatorio(arquivo) {
+      document.getElementById('viewer').src = `reports/${arquivo}`;
+      toggleModal();
+    }
+
+    function toggleModal() {
+      const modal = document.getElementById('dropdownModal');
+      modal.style.display = modal.style.display === 'block' ? 'none' : 'block';
+    }
+
+    document.addEventListener('click', function (event) {
+      const modal = document.getElementById('dropdownModal');
+      const button = document.querySelector('.dropdown-button');
+
+      if (!modal.contains(event.target) && !button.contains(event.target)) {
+        modal.style.display = 'none';
+      }
+    });
+
+    carregarLista();
   </script>
 </body>
 </html>
