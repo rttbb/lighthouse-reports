@@ -1,426 +1,133 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Relatórios Lighthouse – RTTBB</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <title>Radar de Tendências</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    :root {
-      --azul: #002855;
-      --azul-2: #005EB8;
-      --bg: #f4f6fa;
-      --texto: #1f2937;
-      --borda: #e5e7eb;
-      --shadow: 0 10px 30px rgba(0,0,0,.07);
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
-    * { box-sizing: border-box; }
-
-    html, body {
-      height: 100%;
-      margin: 0;
-      font-family: 'Inter', system-ui, Segoe UI, Roboto, Arial, sans-serif;
-      background: var(--bg);
-      color: var(--texto);
-      display: grid;
-      grid-template-rows: auto 1fr auto;
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      min-height: 100vh;
+      flex-direction: column;
     }
 
     header {
-      background: linear-gradient(90deg, var(--azul) 0%, var(--azul-2) 100%);
-      color: #fff;
-      padding: 16px 20px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      position: sticky;
-      top: 0;
-      z-index: 200;
-      box-shadow: 0 2px 8px rgba(0,0,0,.12);
+      background-color: #333;
+      color: white;
+      padding: 1rem;
+      text-align: center;
     }
 
-    .brand {
-      font-weight: 600;
-      font-size: 1.1rem;
-      letter-spacing: .2px;
+    main {
+      flex: 1;
+      padding: 1rem;
     }
 
-    .burger {
-      background: transparent;
-      border: 0;
-      color: #fff;
-      cursor: pointer;
-      padding: 8px;
-      border-radius: 8px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
+    .ano-section {
+      margin-bottom: 2rem;
     }
 
-    .burger:focus {
-      outline: 2px solid #fff;
-      outline-offset: 2px;
+    .ano-section h2 {
+      margin-bottom: 0.5rem;
+      color: #444;
     }
 
-    @media (min-width: 1025px) {
-      .burger {
-        display: none;
-      }
-    }
-
-    .wrap {
-      display: grid;
-      grid-template-columns: 280px 1fr;
-      gap: 20px;
-      max-width: 1400px;
-      width: 100%;
-      margin: 20px auto;
-      padding: 0 20px;
-    }
-
-    aside {
-      background: #fff;
-      border: 1px solid var(--borda);
-      border-radius: 14px;
-      box-shadow: var(--shadow);
-      padding: 14px;
-      height: fit-content;
-      align-self: start;
-    }
-
-    @media (min-width: 1025px) {
-      aside {
-        position: sticky;
-        top: 84px;
-        transform: none;
-        opacity: 1;
-        pointer-events: auto;
-      }
-    }
-
-    @media (max-width: 1024px) {
-      .wrap {
-        grid-template-columns: 1fr;
-      }
-
-      aside {
-        position: fixed;
-        inset: 0 auto 0 0;
-        width: 78%;
-        max-width: 340px;
-        height: 100%;
-        border-radius: 0;
-        padding: 16px;
-        transform: translateX(-100%);
-        transition: transform .25s ease, opacity .25s ease, box-shadow .25s ease;
-        z-index: 100;
-        pointer-events: none;
-        opacity: 0;
-        background: #fff;
-        border: 1px solid var(--borda);
-        box-shadow: var(--shadow);
-      }
-
-      aside.open {
-        transform: translateX(0);
-        pointer-events: auto;
-        opacity: 1;
-        box-shadow: 0 0 0 100vmax rgba(0,0,0,.35);
-      }
-    }
-
-    .section-title {
-      font-weight: 600;
-      color: var(--azul);
-      margin: 6px 8px 8px;
-    }
-
-    details {
-      border: 1px solid var(--borda);
-      border-radius: 12px;
-      padding: 8px;
-      margin: 10px 0;
-      background: #fff;
-    }
-
-    summary {
+    ul {
       list-style: none;
-      cursor: pointer;
-      font-weight: 600;
-      color: var(--azul-2);
+      padding-left: 1rem;
     }
 
-    summary::-webkit-details-marker {
-      display: none;
+    li {
+      margin-bottom: 0.4rem;
     }
 
-    .menu {
-      list-style: none;
-      padding: 6px 0 0 2px;
-      margin: 0;
-      max-height: 360px;
-      overflow: auto;
-    }
-
-    .menu li { margin: 2px 0; }
-
-    .link {
-      width: 100%;
-      display: block;
-      padding: 8px 10px;
-      border-radius: 10px;
+    a {
       text-decoration: none;
-      color: var(--texto);
-      font-weight: 500;
-      border: 1px solid transparent;
+      color: #0077cc;
     }
 
-    .link:hover {
-      background: #f1f5ff;
-      border-color: #dbe7ff;
-    }
-
-    .link.active {
-      background: #e8f1ff;
-      border-color: #cfe3ff;
-      color: #0f2b6d;
-    }
-
-    .viewer {
-      background: #fff;
-      border: 1px solid var(--borda);
-      border-radius: 14px;
-      box-shadow: var(--shadow);
-      padding: 10px;
-      display: flex;
-      flex-direction: column;
-      min-height: 70vh;
-    }
-
-    .viewer-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 8px 10px 12px 10px;
-      border-bottom: 1px solid var(--borda);
-    }
-
-    .crumb {
-      font-weight: 600;
-      color: var(--azul);
-    }
-
-    .open-new {
-      border: 1px solid var(--borda);
-      background: #fff;
-      border-radius: 10px;
-      padding: 6px 10px;
-      cursor: pointer;
-    }
-
-    iframe {
-      width: 100%;
-      height: 75vh;
-      min-height: 520px;
-      border: 0;
-      border-radius: 10px;
-      background: #fff;
+    a:hover {
+      text-decoration: underline;
     }
 
     footer {
-      padding: 14px 20px;
       text-align: center;
-      color: #6b7280;
-      font-size: .95rem;
+      padding: 1rem;
+      font-size: 0.9rem;
+      color: #777;
     }
   </style>
 </head>
 <body>
   <header>
-    <button class="burger" id="burger" aria-label="Abrir menu" aria-controls="drawer" aria-expanded="false">
-      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M3 6h18M3 12h18M3 18h18" stroke="white" stroke-width="2" stroke-linecap="round"/>
-      </svg>
-    </button>
-    <div class="brand">Relatórios Lighthouse – RTTBB</div>
+    <h1>Radar de Tendências</h1>
   </header>
 
-  <div class="wrap">
-    <aside id="drawer" aria-label="Menu de relatórios">
-      <div class="section-title">Relatórios Radar</div>
-      <details open>
-        <summary>PÁGINAS PRINCIPAIS</summary>
-        <ul class="menu">
-          <li><a class="link" href="#reports/radar.apps.bb.com.br.html" data-src="reports/radar.apps.bb.com.br_.html">Home</a></li>
-          <li><a class="link" href="#reports/radar.apps.bb.com.br_2025.html" data-src="reports/radar.apps.bb.com.br_2025.html">Radar 2025</a></li>
-          <li><a class="link" href="#reports/radar.apps.bb.com.br_2024.html" data-src="reports/radar.apps.bb.com.br_2024.html">Radar 2024</a></li>
-          <li><a class="link" href="#reports/radar.apps.bb.com.br_2023.html" data-src="reports/radar.apps.bb.com.br_2023.html">Radar 2023</a></li>
-          <li><a class="link" href="#reports/radar.apps.bb.com.br_2022.html" data-src="reports/radar.apps.bb.com.br_2022.html">Radar 2022</a></li>
-          <li><a class="link" href="#reports/radar.apps.bb.com.br_sobre.html" data-src="reports/radar.apps.bb.com.br_sobre.html">Sobre</a></li>
-          <li><a class="link" href="#reports/radar.apps.bb.com.br_sobre-nos.html" data-src="reports/radar.apps.bb.com.br_sobre-nos.html">Sobre Nós</a></li>
-          <li><a class="link" href="#reports/radar.apps.bb.com.br_noticias.html" data-src="reports/radar.apps.bb.com.br_noticias.html">Notícias</a></li>
-          <li><a class="link" href="#reports/radar.apps.bb.com.br_eventos.html" data-src="reports/radar.apps.bb.com.br_eventos.html">Eventos</a></li>
-          <li><a class="link" href="#reports/radar.apps.bb.com.br_acessibilidade.html" data-src="reports/radar.apps.bb.com.br_acessibilidade.html">Acessibilidade</a></li>
-          <li><a class="link" href="#reports/radar.apps.bb.com.br_maturidades.html" data-src="reports/radar.apps.bb.com.br_maturidades.html">Maturidades</a></li>
-          <li><a class="link" href="#reports/radar.apps.bb.com.br_temas.html" data-src="reports/radar.apps.bb.com.br_temas.html">Temas</a></li>
-        </ul>
-      </details>
+  <main id="conteudo">
+    <p>Carregando relatórios...</p>
+  </main>
 
-      <details>
-        <summary>TEMAS</summary>
-        <ul class="menu">
-          <li><a class="link" href="#reports/radar.apps.bb.com.br_temas_Confiança_217.html" data-src="reports/radar.apps.bb.com.br_temas_Confiança_217.html">Confiança</a></li>
-          <li><a class="link" href="#reports/radar.apps.bb.com.br_temas_Mundo-Inteligente_218.html" data-src="reports/radar.apps.bb.com.br_temas_Mundo-Inteligente_218.html">Mundo Inteligente (218)</a></li>
-          <li><a class="link" href="#reports/radar.apps.bb.com.br_temas_Habilitadores_219.html" data-src="reports/radar.apps.bb.com.br_temas_Habilitadores_219.html">Habilitadores</a></li>
-          <li><a class="link" href="#reports/radar.apps.bb.com.br_temas_Revolução-da-Produtividade_220.html" data-src="reports/radar.apps.bb.com.br_temas_Revolução-da-Produtividade_220.html">Revolução da Produtividade</a></li>
-          <li><a class="link" href="#reports/radar.apps.bb.com.br_temas_Cérebro-Digital_211.html" data-src="reports/radar.apps.bb.com.br_temas_Cérebro-Digital_211.html">Cérebro Digital</a></li>
-          <li><a class="link" href="#reports/radar.apps.bb.com.br_temas_Ecotech-e-Conexão-Onipresente_212.html" data-src="reports/radar.apps.bb.com.br_temas_Ecotech-e-Conexão-Onipresente_212.html">Ecotech e Conexão Onipresente</a></li>
-          <li><a class="link" href="#reports/radar.apps.bb.com.br_temas_Finanças-5.0_213.html" data-src="reports/radar.apps.bb.com.br_temas_Finanças-5.0_213.html">Finanças 5.0</a></li>
-          <li><a class="link" href="#reports/radar.apps.bb.com.br_temas_Jornada-Interativa_214.html" data-src="reports/radar.apps.bb.com.br_temas_Jornada-Interativa_214.html">Jornada Interativa</a></li>
-          <li><a class="link" href="#reports/radar.apps.bb.com.br_temas_Automação-Cognitiva-e-Infra_215.html" data-src="reports/radar.apps.bb.com.br_temas_Automação-Cognitiva-e-Infra_215.html">Automação Cognitiva e Infra</a></li>
-          <li><a class="link" href="#reports/radar.apps.bb.com.br_temas_Segurança-Cibernética_216.html" data-src="reports/radar.apps.bb.com.br_temas_Segurança-Cibernética_216.html">Segurança Cibernética</a></li>
-          <li><a class="link" href="#reports/radar.apps.bb.com.br_temas_TechGuardian_303.html" data-src="reports/radar.apps.bb.com.br_temas_TechGuardian_303.html">TechGuardian</a></li>
-          <li><a class="link" href="#reports/radar.apps.bb.com.br_temas_EcoInovação_304.html" data-src="reports/radar.apps.bb.com.br_temas_EcoInovação_304.html">EcoInovação</a></li>
-          <li><a class="link" href="#reports/radar.apps.bb.com.br_temas_Experiência-Imersiva_305.html" data-src="reports/radar.apps.bb.com.br_temas_Experiência-Imersiva_305.html">Experiência Imersiva</a></li>
-          <li><a class="link" href="#reports/radar.apps.bb.com.br_temas_TechFinance_306.html" data-src="reports/radar.apps.bb.com.br_temas_TechFinance_306.html">TechFinance</a></li>
-          <li><a class="link" href="#reports/radar.apps.bb.com.br_temas_Mundo-Inteligente_301.html" data-src="reports/radar.apps.bb.com.br_temas_Mundo-Inteligente_301.html">Mundo Inteligente (301)</a></li>
-          <li><a class="link" href="#reports/radar.apps.bb.com.br_temas_TechFoundation_302.html" data-src="reports/radar.apps.bb.com.br_temas_TechFoundation_302.html">TechFoundation</a></li>
-        </ul>
-      </details>
-
-      <details>
-        <summary>🗓️ Tendências 2022</summary>
-        <ul class="menu">
-          <li><a class="link" href="#reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Confiança_Autenticação-sem-Senha_6160.html"></a></li>
-          <li><a class="link" href="#reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Confiança_Blockchain-e-Criptoativos_6157.html"></a></li>
-          <li><a class="link" href="#reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Confiança_Computação-de-Aprimoramento-de-Privacidade-e-Segurança-PEC_6118.html"></a></li>
-          <li><a class="link" href="#reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Confiança_Criptografia-Homomórfica_6147.html"></a></li>
-          <li><a class="link" href="#reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Confiança_Malha-de-Dados_6116.html"></a></li>
-          <li><a class="link" href="#reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Confiança_Malha-de-Segurança-Cibernética-Abrangente-CSMA-e-Confiança-Zero_6117.html"></a></li>
-          <li><a class="link" href="#reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Confiança_Novas-Arquiteturas-de-Rede-Neural-Convolucional-ConvNext_6144.html"></a></li>
-          <li><a class="link" href="#reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Confiança_Plataformas-Nativas-de-Nuvem-CNPs_6119.html"></a></li>
-          <li><a class="link" href="#reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Habilitadores_5G_6143.html"></a></li>
-          <li><a class="link" href="#reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Habilitadores_6G_6142.html"></a></li>
-          <li><a class="link" href="#reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Habilitadores_Aplicações-Compostas_6120.html"></a></li>
-          <li><a class="link" href="#reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Habilitadores_Automação-de-Processos-Robóticos-RPA_6156.html"></a></li>
-          <li><a class="link" href="#reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Habilitadores_Computação-Neuromórfica_6155.html"></a></li>
-          <li><a class="link" href="#reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Habilitadores_Engenharia-de-IA_6123.html"></a></li>
-          <li><a class="link" href="#reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Habilitadores_Hiperautomação_6122.html"></a></li>
-          <li><a class="link" href="#reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Habilitadores_Inteligência-de-Decisão:-IA-e-Analytics_6121.html"></a></li>
-          <li><a class="link" href="#reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Habilitadores_Nanotecnologia_6130.html"></a></li>
-          <li><a class="link" href="#reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Habilitadores_Tecnologias-de-Grafos_6148.html"></a></li>
-          <li><a class="link" href="#reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Habilitadores_Tokenização-de-Ativos_6138.html"></a></li>
-          <li><a class="link" href="#reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Habilitadores_Tudo-como-Serviço-XaaS_6132.html"></a></li>
-          <li><a class="link" href="#reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Mundo-Inteligente_Chatbots-Avançados-AVAs_6141.html"></a></li>
-          <li><a class="link" href="#reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Mundo-Inteligente_Cidades-ou-Espaços-Inteligentes_6146.html"></a></li>
-          <li><a class="link" href="#reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Mundo-Inteligente_Comoditização-da-Tecnologia-Espacial_6161.html"></a></li>
-          <li><a class="link" href="#reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Mundo-Inteligente_Contratos-Inteligentes_6134.html"></a></li>
-          <li><a class="link" href="#reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Mundo-Inteligente_Gêmeos-Digitais_6137.html"></a></li>
-          <li><a class="link" href="#reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Mundo-Inteligente_Interface-de-Usuário-Multimodal-MUI_6135.html"></a></li>
-          <li><a class="link" href="#reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Mundo-Inteligente_Metaverso_6128.html"></a></li>
-          <li><a class="link" href="#reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Mundo-Inteligente_Plataforma-de-Internet-das-Coisas_6140.html"></a></li>
-          <li><a class="link" href="#reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Mundo-Inteligente_Realidade-Estendida-XR:-Aumentada-AR-Virtual-VR-e-Mista-MR-Dispositivos-Vestíveis-e-Internet-do-Comportamento-IoB_6150.html"></a></li>
-          <li><a class="link" href="#reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Mundo-Inteligente_Tecnologias-Holográficas_6149.html"></a></li>
-          <li><a class="link" href="#reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Mundo-Inteligente_Tecnologias-Sustentáveis:-TI-Verde_6129.html"></a></li>
-          <li><a class="link" href="#reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Mundo-Inteligente_Telemedicina_6158.html"></a></li>
-          <li><a class="link" href="#reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Mundo-Inteligente_Web-3.0-e-Software-2.0_6159.html"></a></li>
-          <li><a class="link" href="#reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Revolução-da-Produtividade_Aprendizagem-Auto-Supervisionada-SSL_6152.html"></a></li>
-          <li><a class="link" href="#reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Revolução-da-Produtividade_Coisas-autônomas_6126.html"></a></li>
-          <li><a class="link" href="#reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Revolução-da-Produtividade_Computação-Quântica_6154.html"></a></li>
-          <li><a class="link" href="#reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Revolução-da-Produtividade_Economia-sem-Dinheiro:-Pagamentos-4.X_6133.html"></a></li>
-          <li><a class="link" href="#reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Revolução-da-Produtividade_Engenharia-de-Software-Aumentada-por-IA-AIASE_6136.html"></a></li>
-          <li><a class="link" href="#reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Revolução-da-Produtividade_Experiência-Total-TX_6125.html"></a></li>
-          <li><a class="link" href="#reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Revolução-da-Produtividade_Finanças-Descentralizadas-DeFi_6131.html"></a></li>
-          <li><a class="link" href="#reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Revolução-da-Produtividade_Futuro-Híbrido:-Empresas-Distribuídas-WFH_6124.html"></a></li>
-          <li><a class="link" href="#reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Revolução-da-Produtividade_IA-de-Borda_6153.html"></a></li>
-          <li><a class="link" href="#reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Revolução-da-Produtividade_IA-Generativa_6127.html"></a></li>
-          <li><a class="link" href="#reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Revolução-da-Produtividade_Plataformas-Low-Code-e-No-Code_6145.html"></a></li>
-          <li><a class="link" href="#reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Revolução-da-Produtividade_Robôs-Colaborativos-Cobots_6151.html"></a></li>
-          <li><a class="link" href="#reports/radar.apps.bb.com.br_tendencia_Radar-2022_Temas_Revolução-da-Produtividade_Token-Não-Fungível-NFT_6139.html></a></li>
-        </ul>
-      </details>
-    </aside>
-
-    <section class="viewer" aria-live="polite">
-      <div class="viewer-header">
-        <div class="crumb" id="crumb">Selecione um relatório no menu</div>
-        <button class="open-new" id="openNew" disabled>Abrir em nova guia</button>
-      </div>
-      <iframe id="reportFrame" title="Visualizador de Relatórios"></iframe>
-    </section>
-  </div>
-
-  <footer>© 2025 • Equipe RTTBB</footer>
+  <footer>
+    &copy; 2025 Radar de Tendências BB
+  </footer>
 
   <script>
-    const drawer = document.getElementById('drawer');
-    const burger = document.getElementById('burger');
-    const frame  = document.getElementById('reportFrame');
-    const crumb  = document.getElementById('crumb');
-    const openNewBtn = document.getElementById('openNew');
+    async function carregarRelatorios() {
+      try {
+        const resposta = await fetch('reports/list.json');
+        const arquivos = await resposta.json();
 
-    function setActive(linkEl){
-      document.querySelectorAll('.link').forEach(a=>a.classList.remove('active'));
-      if(linkEl){ linkEl.classList.add('active'); }
-    }
+        // Agrupar por ano
+        const grupos = {};
 
-    function loadFromLink(linkEl){
-      const url = linkEl?.dataset.src;
-      const label = linkEl?.textContent?.trim() || 'Relatório';
-      if(!url) return;
-      frame.src = url;
-      crumb.textContent = label;
-      setActive(linkEl);
-      openNewBtn.disabled = false;
-      openNewBtn.onclick = () => window.open(url, '_blank');
+        arquivos.forEach(arquivo => {
+          const match = arquivo.match(/_202(\d|[3-5])/); // 2022 a 2025
+          const ano = match ? `Radar ${match[0].replace('_', '')}` : 'Outros';
 
-      if (window.matchMedia('(max-width: 1024px)').matches) {
-        drawer.classList.remove('open');
-        burger.setAttribute('aria-expanded','false');
-        document.body.style.overflow = 'auto';
+          if (!grupos[ano]) grupos[ano] = [];
+          grupos[ano].push(arquivo);
+        });
+
+        const conteudo = document.getElementById('conteudo');
+        conteudo.innerHTML = '';
+
+        Object.keys(grupos).sort().forEach(ano => {
+          const section = document.createElement('div');
+          section.className = 'ano-section';
+
+          const titulo = document.createElement('h2');
+          titulo.textContent = ano;
+          section.appendChild(titulo);
+
+          const lista = document.createElement('ul');
+
+          grupos[ano].forEach(nome => {
+            const item = document.createElement('li');
+            const link = document.createElement('a');
+            link.href = `reports/${nome}`;
+            link.textContent = nome.replace('radar.apps.bb.com.br_', '').replace('.html', '').replace(/_/g, ' ');
+            item.appendChild(link);
+            lista.appendChild(item);
+          });
+
+          section.appendChild(lista);
+          conteudo.appendChild(section);
+        });
+
+      } catch (erro) {
+        document.getElementById('conteudo').innerHTML = '<p>Erro ao carregar relatórios.</p>';
+        console.error('Erro ao carregar list.json:', erro);
       }
     }
 
-    drawer.addEventListener('click', (e)=>{
-      const a = e.target.closest('.link');
-      if(!a) return;
-      e.preventDefault();
-      history.replaceState(null, '', a.getAttribute('href'));
-      loadFromLink(a);
-    });
-
-    burger.addEventListener('click', ()=>{
-      const open = drawer.classList.toggle('open');
-      burger.setAttribute('aria-expanded', String(open));
-      document.body.style.overflow = open ? 'hidden' : 'auto';
-    });
-
-    window.addEventListener('keydown', (e)=>{
-      if(e.key === 'Escape' && drawer.classList.contains('open')){
-        drawer.classList.remove('open');
-        burger.setAttribute('aria-expanded','false');
-        document.body.style.overflow = 'auto';
-      }
-    });
-
-    function bootFromHash(){
-      const hash = decodeURIComponent(location.hash || '').replace(/^#/, '');
-      if(!hash) return;
-      const link = document.querySelector(`.link[href="#${CSS.escape(hash)}"]`);
-      if(link){ loadFromLink(link); }
-    }
-
-    function loadDefault(){
-      const first = document.querySelector('.menu .link');
-      if(first && !location.hash){
-        history.replaceState(null,'',first.getAttribute('href'));
-        loadFromLink(first);
-      }
-    }
-
-    bootFromHash();
-    loadDefault();
+    carregarRelatorios();
   </script>
 </body>
 </html>
