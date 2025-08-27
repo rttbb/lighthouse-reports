@@ -63,14 +63,25 @@
       border-radius: 5px;
       box-shadow: 0 4px 8px rgba(0,0,0,0.2);
       z-index: 999;
-      width: 300px;
-      max-height: 400px;
+      width: 350px;
+      max-height: 500px;
       overflow-y: auto;
       display: none;
+      padding: 1rem;
+    }
+
+    .modal input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
     }
 
     .modal ul {
       list-style: none;
+      max-height: 420px;
+      overflow-y: auto;
     }
 
     .modal li {
@@ -100,28 +111,40 @@
   </header>
 
   <div class="modal" id="dropdownModal">
+    <input type="text" id="searchInput" placeholder="Buscar relatório..." oninput="filtrarLista()" />
     <ul id="relatoriosList"></ul>
   </div>
 
   <iframe id="viewer" src="reports/radar.apps.bb.com.br.html"></iframe>
 
   <script>
+    let todosArquivos = [];
+
     async function carregarLista() {
       try {
         const response = await fetch('reports/list.json');
-        const arquivos = await response.json();
-        const lista = document.getElementById('relatoriosList');
-        lista.innerHTML = '';
-
-        arquivos.forEach(arquivo => {
-          const li = document.createElement('li');
-          li.textContent = arquivo;
-          li.onclick = () => carregarRelatorio(arquivo);
-          lista.appendChild(li);
-        });
+        todosArquivos = await response.json();
+        exibirLista(todosArquivos);
       } catch (error) {
         console.error('Erro ao carregar list.json:', error);
       }
+    }
+
+    function exibirLista(lista) {
+      const ul = document.getElementById('relatoriosList');
+      ul.innerHTML = '';
+      lista.forEach(arquivo => {
+        const li = document.createElement('li');
+        li.textContent = arquivo;
+        li.onclick = () => carregarRelatorio(arquivo);
+        ul.appendChild(li);
+      });
+    }
+
+    function filtrarLista() {
+      const termo = document.getElementById('searchInput').value.toLowerCase();
+      const filtrados = todosArquivos.filter(nome => nome.toLowerCase().includes(termo));
+      exibirLista(filtrados);
     }
 
     function carregarRelatorio(arquivo) {
@@ -132,12 +155,14 @@
     function toggleModal() {
       const modal = document.getElementById('dropdownModal');
       modal.style.display = modal.style.display === 'block' ? 'none' : 'block';
+      if (modal.style.display === 'block') {
+        document.getElementById('searchInput').focus();
+      }
     }
 
     document.addEventListener('click', function (event) {
       const modal = document.getElementById('dropdownModal');
       const button = document.querySelector('.dropdown-button');
-
       if (!modal.contains(event.target) && !button.contains(event.target)) {
         modal.style.display = 'none';
       }
