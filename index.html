@@ -87,14 +87,38 @@
     }
 
     /* Responsivo */
+    
     @media (max-width: 1024px){
-      .wrap{grid-template-columns:1fr}
+      /* Layout: 1 coluna; o aside sai do fluxo */
+      .wrap{ grid-template-columns: 1fr; }
+    
       aside{
-        position:fixed; inset:0 auto 0 0; width:78%; max-width:340px; height:100%;
-        top:0; border-radius:0; padding:16px; transform:translateX(-100%);
-        transition:transform .25s ease, box-shadow .25s ease; z-index:100;
+        position: fixed;
+        inset: 0 auto 0 0;     /* ocupa a altura toda na esquerda */
+        width: 78%;
+        max-width: 340px;
+        height: 100%;
+        top: 0;
+        border-radius: 0;
+        padding: 16px;
+        background: #fff;
+        border: 1px solid var(--borda);
+        box-shadow: var(--shadow);
+        transform: translateX(-100%);      /* começa fora da tela */
+        transition: transform .25s ease, opacity .25s ease, box-shadow .25s ease;
+        z-index: 100;
+    
+        /* Não captura cliques nem aparece visualmente quando fechado */
+        pointer-events: none;
+        opacity: 0;
       }
-      aside.open{transform:translateX(0); box-shadow:0 0 0 100vmax rgba(0,0,0,.35)}
+    
+      aside.open{
+        transform: translateX(0);          /* desliza para dentro */
+        pointer-events: auto;
+        opacity: 1;
+        box-shadow: 0 0 0 100vmax rgba(0,0,0,.35); /* overlay clicável */
+      }
     }
   </style>
 </head>
